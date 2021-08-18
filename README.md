@@ -1,6 +1,6 @@
 # add_to_cart_animation
 
-An flutter plugin which provide you add to cart animation as in the gif. 
+A flutter plugin which provide you add to cart animation as in the gif. 
 
 [![Preview Gif](https://media.giphy.com/media/IXbEKEF7PNsN4yQkdG/giphy.gif)]
 

@@ -1,7 +1,9 @@
 name: add_to_cart_animation
-description: A new flutter plugin project.
+description: A flutter plugin which provide you add to cart animation as in the gif.
 version: 0.0.1
-homepage:
+author: Ömer Bayrak <omerbyrk8@gmail.com>
+homepage: https://github.com/omerbyrk/add_to_cart_animation
+publish_to: https://pub.dev
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
