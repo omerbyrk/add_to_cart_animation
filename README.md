@@ -2,5 +2,5 @@
 
 A new flutter plugin project.
 
-[![Preview Gif](https://s5.gifyu.com/images/ezgif.com-video-to-gif.th.gif)]
+[![Preview Gif](https://media.giphy.com/media/IXbEKEF7PNsN4yQkdG/giphy.gif)]
 
