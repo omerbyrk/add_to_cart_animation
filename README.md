@@ -2,5 +2,5 @@
 
 A new flutter plugin project.
 
-![Alt Text](https://gfycat.com/competentblissfulcattle)
+[![Preview Gif](https://s5.gifyu.com/images/ezgif.com-video-to-gif.th.gif)](https://gifyu.com/image/GMbC)
 
