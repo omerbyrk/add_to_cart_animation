@@ -1,20 +1,14 @@
 PODS:
-  - add_to_cart_animation (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
 
 DEPENDENCIES:
-  - add_to_cart_animation (from `.symlinks/plugins/add_to_cart_animation/ios`)
   - Flutter (from `Flutter`)
 
 EXTERNAL SOURCES:
-  add_to_cart_animation:
-    :path: ".symlinks/plugins/add_to_cart_animation/ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  add_to_cart_animation: f74b2465c566666c7f0acaa8758c82dfbc0ef6ef
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

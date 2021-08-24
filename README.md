@@ -12,7 +12,7 @@ Add the dependency to your pubspec.yaml:
 add_to_cart_animation: ^0.0.3
 ```
 
-And check the example to solve how it works. 
+And check the example code to solve how it works. 
 
 ```
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
@@ -48,15 +48,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // We can detech the location of the card by this  GlobalKey<CartIconKey>
   GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
 
   @override
   Widget build(BuildContext context) {
     return AddToCartAnimation(
+      // To send the library the location of the Cart icon
       gkCart: gkCart,
       rotation: true,
+      dragToCardCurve: Curves.easeIn,
+      dragToCardDuration: const Duration(milliseconds: 1000),
+      previewCurve: Curves.linearToEaseOut,
+      previewDuration: const Duration(milliseconds: 500),
+      previewHeight: 30,
+      previewWidth: 30,
+      opacity: 0.85,
       receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+        // You can run the animation by addToCardAnimationMethod, just pass trough the the global key of  the image as parameter
         this.runAddToCardAnimation = addToCardAnimationMethod;
       },
       child: Scaffold(
@@ -64,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           centerTitle: false,
           actions: [
+            //
             AddToCartIcon(
               key: gkCart,
               icon: Icon(Icons.shopping_cart),
@@ -108,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     runAddToCardAnimation(gkImage);
   }
 }
+
 
 ```
 
