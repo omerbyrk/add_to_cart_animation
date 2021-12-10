@@ -13,7 +13,8 @@ class PositionedAnimationModel {
   Size imageDestSize = Size.zero;
   bool rotation = false;
   double opacity = 0.85;
-  late Image widget;
+  // Improvement/Suggestion 2.1: Container variable
+  late Container container;
   Duration duration = Duration.zero;
   Curve curve = Curves.easeIn;
 }
@@ -29,6 +30,7 @@ class AddToCartAnimation extends StatefulWidget {
   final Duration dragToCardDuration;
   final Curve previewCurve;
   final Curve dragToCardCurve;
+  final bool initiaJump;
   final Function(Future<void> Function(GlobalKey))
       receiveCreateAddToCardAnimationMethod;
 
@@ -42,6 +44,8 @@ class AddToCartAnimation extends StatefulWidget {
     this.previewDuration = const Duration(milliseconds: 500),
     this.dragToCardDuration = const Duration(milliseconds: 1000),
     this.rotation = false,
+    // Improvement/Suggestion 1.1: initialJumping variable
+    this.initiaJump = true,
     this.opacity = 0.85,
     this.previewCurve = Curves.linearToEaseOut,
     this.dragToCardCurve = Curves.easeIn,
@@ -88,7 +92,7 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
                             ? TweenAnimationBuilder(
                                 tween: Tween<double>(begin: 0, end: pi * 2),
                                 duration: model.duration,
-                                child: model.widget,
+                                child: model.container,
                                 builder: (context, double value, widget) {
                                   return Transform.rotate(
                                     angle: value,
@@ -101,7 +105,7 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
                               )
                             : Opacity(
                                 opacity: model.opacity,
-                                child: model.widget,
+                                child: model.container,
                               ),
                       )
                     : Container())
@@ -112,29 +116,33 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
     );
   }
 
-  Future<void> runAddToCardAnimation(GlobalKey gkImage) async {
+  // Improvement/Suggestion 3 ->  from gkImage to gkImageContainer
+  Future<void> runAddToCardAnimation(GlobalKey gkImageContainer) async {
     PositionedAnimationModel animationModel = PositionedAnimationModel()
       ..rotation = false
       ..opacity = widget.opacity;
 
     animationModel.imageSourcePoint =
-        Offset(gkImage.globalPaintBounds!.top, gkImage.globalPaintBounds!.left);
+        Offset(gkImageContainer.globalPaintBounds!.top, gkImageContainer.globalPaintBounds!.left);
 
+    // Improvement/Suggestion 1: Provinding option, in order to, use/or not initial "jumping" on image
+    var startingHeight =
+    widget.initiaJump ? gkImageContainer.currentContext!.size!.height : 0;
     animationModel.imageDestPoint = Offset(
-        gkImage.globalPaintBounds!.top -
-            (gkImage.currentContext!.size!.height + widget.previewHeight),
-        gkImage.globalPaintBounds!.left);
+        gkImageContainer.globalPaintBounds!.top - (startingHeight + widget.previewHeight),
+        gkImageContainer.globalPaintBounds!.left);
 
-    animationModel.imageSourceSize = Size(gkImage.currentContext!.size!.width,
-        gkImage.currentContext!.size!.height);
+    animationModel.imageSourceSize = Size(gkImageContainer.currentContext!.size!.width,
+        gkImageContainer.currentContext!.size!.height);
 
     animationModel.imageDestSize = Size(
-        gkImage.currentContext!.size!.width + widget.previewWidth,
-        gkImage.currentContext!.size!.height + widget.previewHeight);
+        gkImageContainer.currentContext!.size!.width + widget.previewWidth,
+        gkImageContainer.currentContext!.size!.height + widget.previewHeight);
 
     animationModels.add(animationModel);
-    animationModel.widget = Image(
-      image: (gkImage.currentWidget! as Image).image,
+    // Improvement/Suggestion 2: Changing the animationModel.child from Image to gkImageContainer
+    animationModel.container = Container(
+      child: (gkImageContainer.currentWidget! as Container).child,
     );
 
     animationModel.showAnimation = true;
@@ -169,8 +177,12 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
     await Future.delayed(animationModel.duration);
     animationModel.showAnimation = false;
     animationModel.animationActive = false;
+
     setState(() {});
-    await this.widget.gkCart.currentState!.runAnimation();
+
+    // Improvement/Suggestion 4.3: runCartAnimation is running independently, using gkCart.currentState(main.dart)
+    // await this.widget.gkCart.currentState!.runCartAnimation();
+
     return;
   }
 }

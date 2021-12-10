@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Add To Cart Animation'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -34,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // We can detech the location of the card by this  GlobalKey<CartIconKey>
   GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCardAnimation;
+  var _cartQuantityItems = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       previewHeight: 30,
       previewWidth: 30,
       opacity: 0.85,
+      initiaJump: false,
       receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
         // You can run the animation by addToCardAnimationMethod, just pass trough the the global key of  the image as parameter
         this.runAddToCardAnimation = addToCardAnimationMethod;
@@ -57,7 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           centerTitle: false,
           actions: [
-            //
+            // Improvement/Suggestion 4.4 -> Adding 'clear-cart-button'
+            IconButton(
+              icon: Icon(Icons.cleaning_services),
+              onPressed: () {
+                _cartQuantityItems = 0;
+                gkCart.currentState!.runClearCartAnimation();
+              },
+            ),
+            SizedBox(width: 16),
             AddToCartIcon(
               key: gkCart,
               icon: Icon(Icons.shopping_cart),
@@ -76,29 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
             AppListItem(onClick: listClick),
             AppListItem(onClick: listClick),
             AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
           ],
         ),
       ),
     );
   }
 
-  void listClick(GlobalKey gkImage) {
-    runAddToCardAnimation(gkImage);
+  // Improvement/Suggestion 4.4 -> Running AddTOCartAnimation BEFORE runCArtAnimation
+  void listClick(GlobalKey gkImageContainer) async {
+    await runAddToCardAnimation(gkImageContainer);
+    await gkCart.currentState!.runCartAnimation((++_cartQuantityItems).toString());
   }
 }

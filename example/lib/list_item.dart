@@ -8,15 +8,17 @@ class AppListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Image image = Image.asset(
-      "assets/apple.png",
-      key: imageGlobalKey,
-      width: 60,
-      height: 60,
-    );
+    // Improvement/Suggestion 3.1: Container is mandatory. It can hold images or whatever you want
+    Container mandatoryContainer = Container(
+        key: imageGlobalKey,
+        width: 60,
+        height: 60,
+        color: Colors.transparent,
+        child: Image.asset("assets/apple.png", width: 60, height: 60));
+
     return ListTile(
       onTap: () => onClick(imageGlobalKey),
-      leading: Container(child: image),
+      leading: mandatoryContainer,
       title: FutureBuilder(
         future: Future.value(Rect.zero),
         initialData: Rect.zero,
