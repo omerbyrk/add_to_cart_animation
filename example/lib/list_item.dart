@@ -6,10 +6,9 @@ class AppListItem extends StatelessWidget {
   final int index;
   final void Function(GlobalKey) onClick;
 
-  AppListItem({required this.onClick, required this.index });
+  AppListItem({required this.onClick, required this.index});
   @override
   Widget build(BuildContext context) {
-
     // Improvement/Suggestion 3.1: Container is mandatory. It can hold images or whatever you want
     Container mandatoryContainer = Container(
         key: imageGlobalKey,
@@ -19,9 +18,8 @@ class AppListItem extends StatelessWidget {
         child: Image.asset("assets/apple.png", width: 60, height: 60));
 
     return ListTile(
-      onTap: () => onClick(imageGlobalKey),
-      leading: mandatoryContainer,
-      title: Text("Animated Apple $index")
-    );
+        onTap: () => onClick(imageGlobalKey),
+        leading: mandatoryContainer,
+        title: Text("Animated Apple $index"));
   }
 }

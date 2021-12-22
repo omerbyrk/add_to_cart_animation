@@ -15,7 +15,8 @@ class AddToCartIcon extends StatefulWidget {
   CartIconKey createState() => CartIconKey();
 }
 
-class CartIconKey extends State<AddToCartIcon> with SingleTickerProviderStateMixin {
+class CartIconKey extends State<AddToCartIcon>
+    with SingleTickerProviderStateMixin {
   // Improvement/Suggestion 4.1: Adding 'badget-widget' counter
   String _qtdeBadge = "0";
 
@@ -42,7 +43,6 @@ class CartIconKey extends State<AddToCartIcon> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-
     // Improvement/Suggestion 5 -> Implementing Cart with Badge
     return Container(
       width: 50,
@@ -60,7 +60,8 @@ class CartIconKey extends State<AddToCartIcon> with SingleTickerProviderStateMix
                 padding: EdgeInsets.all(2.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: widget.colorBadge ?? Theme.of(context).colorScheme.secondary,
+                  color: widget.colorBadge ??
+                      Theme.of(context).colorScheme.secondary,
                 ),
                 constraints: BoxConstraints(minWidth: 16, minHeight: 16),
                 child: Text(

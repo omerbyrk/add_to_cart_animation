@@ -122,17 +122,20 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
       ..rotation = false
       ..opacity = widget.opacity;
 
-    animationModel.imageSourcePoint =
-        Offset(gkImageContainer.globalPaintBounds!.top, gkImageContainer.globalPaintBounds!.left);
+    animationModel.imageSourcePoint = Offset(
+        gkImageContainer.globalPaintBounds!.top,
+        gkImageContainer.globalPaintBounds!.left);
 
     // Improvement/Suggestion 1: Provinding option, in order to, use/or not initial "jumping" on image
     var startingHeight =
-    widget.initiaJump ? gkImageContainer.currentContext!.size!.height : 0;
+        widget.initiaJump ? gkImageContainer.currentContext!.size!.height : 0;
     animationModel.imageDestPoint = Offset(
-        gkImageContainer.globalPaintBounds!.top - (startingHeight + widget.previewHeight),
+        gkImageContainer.globalPaintBounds!.top -
+            (startingHeight + widget.previewHeight),
         gkImageContainer.globalPaintBounds!.left);
 
-    animationModel.imageSourceSize = Size(gkImageContainer.currentContext!.size!.width,
+    animationModel.imageSourceSize = Size(
+        gkImageContainer.currentContext!.size!.width,
         gkImageContainer.currentContext!.size!.height);
 
     animationModel.imageDestSize = Size(

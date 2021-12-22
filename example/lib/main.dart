@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Improvement/Suggestion 4.4 -> Running AddTOCartAnimation BEFORE runCArtAnimation
   void listClick(GlobalKey gkImageContainer) async {
     await runAddToCardAnimation(gkImageContainer);
-    await gkCart.currentState!.runCartAnimation((++_cartQuantityItems).toString());
+    await gkCart.currentState!
+        .runCartAnimation((++_cartQuantityItems).toString());
   }
 }

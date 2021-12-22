@@ -9,7 +9,7 @@ If you like it, you can add it to your project easily. It is <b>easy to use</b>
 Add the dependency to your pubspec.yaml: 
 
 ```
-add_to_cart_animation: ^1.0.0
+add_to_cart_animation: ^1.0.1
 ```
 
 And check the example code to solve how it works. 
