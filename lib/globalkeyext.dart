@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension GlobalKeyEx on GlobalKey {
+extension GlobalKeyExt on GlobalKey {
   Rect? get globalPaintBounds {
     final renderObject = currentContext?.findRenderObject();
     var translation = renderObject?.getTransformTo(null).getTranslation();

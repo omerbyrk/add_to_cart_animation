@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 class AddToCartIcon extends StatefulWidget {
   final GlobalKey<CartIconKey> key;
   final Widget icon;
-  const AddToCartIcon({required this.key, required this.icon})
-      : super(key: key);
+  final Color? colorBadge;
+
+  const AddToCartIcon({
+    required this.key,
+    required this.icon,
+    this.colorBadge,
+  }) : super(key: key);
 
   @override
   CartIconKey createState() => CartIconKey();
 }
 
-class CartIconKey extends State<AddToCartIcon>
-    with SingleTickerProviderStateMixin {
+class CartIconKey extends State<AddToCartIcon> with SingleTickerProviderStateMixin {
+  // Improvement/Suggestion 4.1: Adding 'badget-widget' counter
+  String _qtdeBadge = "0";
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 225),
     vsync: this,
@@ -35,16 +42,60 @@ class CartIconKey extends State<AddToCartIcon>
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _offsetAnimation,
-      child: this.widget.icon,
+
+    // Improvement/Suggestion 5 -> Implementing Cart with Badge
+    return Container(
+      width: 50,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SlideTransition(
+            position: _offsetAnimation,
+            child: this.widget.icon,
+          ),
+          Positioned(
+              left: 30,
+              top: 5,
+              child: Container(
+                padding: EdgeInsets.all(2.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: widget.colorBadge ?? Theme.of(context).colorScheme.secondary,
+                ),
+                constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+                child: Text(
+                  _qtdeBadge,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10),
+                ),
+              )),
+        ],
+      ),
     );
   }
 
-  Future<void> runAnimation() async {
+  // Improvement/Suggestion 4.2: Change method-name + incorporating badge-quantity as optional-parameter
+  Future<void> runCartAnimation([String? badgeQuantity]) async {
     await _controller.forward();
     await _controller.reverse();
+    _changeQtdeBadgeState(badgeQuantity);
     return;
-    //_controller.reset();
+  }
+
+  // Improvement/Suggestion 4.3: Adding 'badget-widget' counter Set-State
+  void _changeQtdeBadgeState(String? value) {
+    if (value != null) {
+      setState(() {
+        _qtdeBadge = value;
+      });
+    }
+  }
+
+  // Improvement/Suggestion 4.4 -> Adding 'clear-cart-button'
+  Future<void> runClearCartAnimation() async {
+    await _controller.forward();
+    await _controller.reverse();
+    _changeQtdeBadgeState("0");
+    return;
   }
 }
