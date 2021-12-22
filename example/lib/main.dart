@@ -1,5 +1,6 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
+
 import 'package:flutter/material.dart';
 
 import 'list_item.dart';
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             AddToCartIcon(
               key: gkCart,
               icon: Icon(Icons.shopping_cart),
+              colorBadge: Colors.red,
             ),
             SizedBox(
               width: 16,
@@ -80,13 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: ListView(
           children: [
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
-            AppListItem(onClick: listClick),
+            AppListItem(onClick: listClick, index: 1),
+            AppListItem(onClick: listClick, index: 2),
+            AppListItem(onClick: listClick, index: 3),
+            AppListItem(onClick: listClick, index: 4),
+            AppListItem(onClick: listClick, index: 5),
+            AppListItem(onClick: listClick, index: 6),
+            AppListItem(onClick: listClick, index: 7),
           ],
         ),
       ),

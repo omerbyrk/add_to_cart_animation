@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:add_to_cart_animation/globalkeyext.dart';
 
 class AppListItem extends StatelessWidget {
   final GlobalKey imageGlobalKey = GlobalKey();
+  final int index;
   final void Function(GlobalKey) onClick;
 
-  AppListItem({required this.onClick});
-
+  AppListItem({required this.onClick, required this.index });
   @override
   Widget build(BuildContext context) {
+
     // Improvement/Suggestion 3.1: Container is mandatory. It can hold images or whatever you want
     Container mandatoryContainer = Container(
         key: imageGlobalKey,
@@ -19,14 +21,7 @@ class AppListItem extends StatelessWidget {
     return ListTile(
       onTap: () => onClick(imageGlobalKey),
       leading: mandatoryContainer,
-      title: FutureBuilder(
-        future: Future.value(Rect.zero),
-        initialData: Rect.zero,
-        builder: (_, snapshot) {
-          return Text(snapshot.data.toString());
-        },
-      ),
-      //title: Text(key.globalPaintBounds!.top.toString() + " - " + key.globalPaintBounds!.left.toString() + " - " + key.globalPaintBounds!.right.toString()+ " - " + key.globalPaintBounds!.left.toString()),
+      title: Text("Animated Apple $index")
     );
   }
 }
