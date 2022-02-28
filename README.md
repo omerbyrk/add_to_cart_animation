@@ -9,7 +9,7 @@ If you like it, you can add it to your project easily. It is <b>easy to use</b>
 Add the dependency to your pubspec.yaml: 
 
 ```
-add_to_cart_animation: ^1.0.1
+add_to_cart_animation: ^1.0.2
 ```
 
 And check the example code to solve how it works. 
@@ -128,4 +128,8 @@ Have a good days.
 
 [codegtd ](https://github.com/codegtd)
 
+
+#### Support
+
+Did you find this plugin useful? Please consider to [buy me a coffe!](https://www.buymeacoffee.com/omerbyrk)
 
