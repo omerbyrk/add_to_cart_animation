@@ -4,7 +4,7 @@ A flutter plugin which provide you add to cart animation. I have prepared it to 
 
 ![Icon Preview Gif](https://media.giphy.com/media/EqgAF1n7oSiQ5QP3SS/giphy.gif) | ![Image Preview Gif](https://media.giphy.com/media/iBlKNqY30NtZuJ2dXL/giphy.gif) | ![Text Preview Gif](https://media.giphy.com/media/aPAjmlS2AnZC1kkIwf/giphy.gif)
  
-</table>
+
 #### Features
 <ul>
 <li>Product container accepts every widget.</li>
