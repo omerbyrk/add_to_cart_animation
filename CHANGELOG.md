@@ -1,12 +1,25 @@
-## 0.0.1
+## 2.0.1
 
-* TODO: Describe initial release.
+* Pub points optimization
+
+## 2.0.0
+
+* document optimization
+* code optimization/refactoring
+* added cart's badge invisible feature
+
+## 1.0.1
+
+* package improvements
+* code optimization
+* added cart badge feature
+* added badge clear feature
+
+## 1.0.0
+
+* add to cart animation is released
 
 
-## 0.0.2
 
-* TODO: Added web support.
 
-## 0.0.3
 
-* TODO: Added full support.
