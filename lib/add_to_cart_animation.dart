@@ -25,6 +25,7 @@ class _PositionedAnimationModel {
   Curve curve = Curves.easeIn;
 }
 
+/// An add to cart animation which provide you an animation by sliding the product to cart in the Flutter app
 class AddToCartAnimation extends StatefulWidget {
   final Widget child;
 
@@ -32,6 +33,8 @@ class AddToCartAnimation extends StatefulWidget {
   final GlobalKey<CartIconKey> cartKey;
 
   /// you can receive [runAddToCartAnimation] animation method on [createAddToCartAnimation].
+  /// [runAddToCartAnimation] animation method runs the add to cart animation based on the given parameters.
+  /// Add to cart animation drags the given widget to the cart based on their location via global keys
   final Function(Future<void> Function(GlobalKey)) createAddToCartAnimation;
 
   /// What Should the given widget's height while dragging to the cart
@@ -126,8 +129,6 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
     );
   }
 
-  /// Runs the add to cart animation based on the given parameters.
-  /// Add to cart animation drags the given widget to the cart based on their location via global keys
   Future<void> runAddToCartAnimation(GlobalKey widgetKey) async {
     _PositionedAnimationModel animationModel = _PositionedAnimationModel()
       ..rotation = false

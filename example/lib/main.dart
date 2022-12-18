@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  // We can detech the location of the cart by this  GlobalKey<CartIconKey>
+  // We can detect the location of the cart by this  GlobalKey<CartIconKey>
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
   late Function(GlobalKey) runAddToCartAnimation;
   var _cartQuantityItems = 0;
@@ -44,7 +44,9 @@ class MyHomePageState extends State<MyHomePage> {
       height: 30,
       width: 30,
       opacity: 0.85,
-      dragAnimation: const DragToCartAnimationOptions(rotation: true),
+      dragAnimation: const DragToCartAnimationOptions(
+        rotation: true,
+      ),
       jumpAnimation: const JumpAnimationOptions(),
       createAddToCartAnimation: (runAddToCartAnimation) {
         // You can run the animation by addToCartAnimationMethod, just pass trough the the global key of  the image as parameter
@@ -78,13 +80,14 @@ class MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: ListView(
-            children: List.generate(
-          15,
-          (index) => AppListItem(
-            onClick: listClick,
-            index: index,
+          children: List.generate(
+            15,
+            (index) => AppListItem(
+              onClick: listClick,
+              index: index,
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
@@ -111,14 +114,18 @@ class AppListItem extends StatelessWidget {
       height: 60,
       color: Colors.transparent,
       child: Image.network(
-          "https://cdn.jsdelivr.net/gh/omerbyrk/add_to_cart_animation/example/assets/apple.png",
-          width: 60,
-          height: 60),
+        "https://cdn.jsdelivr.net/gh/omerbyrk/add_to_cart_animation/example/assets/apple.png",
+        width: 60,
+        height: 60,
+      ),
     );
 
     return ListTile(
-        onTap: () => onClick(widgetKey),
-        leading: mandatoryContainer,
-        title: Text("Animated Apple $index"));
+      onTap: () => onClick(widgetKey),
+      leading: mandatoryContainer,
+      title: Text(
+        "Animated Apple Product Image $index",
+      ),
+    );
   }
 }
