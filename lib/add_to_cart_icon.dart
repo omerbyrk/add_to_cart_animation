@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'badge_options.dart';
+
+export 'badge_options.dart';
 
 class AddToCartIcon extends StatefulWidget {
   final GlobalKey<CartIconKey> key;
   final Widget icon;
-  final Color? colorBadge;
+  final BadgeOptions badgeOptions;
 
   const AddToCartIcon({
     required this.key,
     required this.icon,
-    this.colorBadge,
+    this.badgeOptions = const BadgeOptions(),
   }) : super(key: key);
 
   @override
@@ -17,7 +20,6 @@ class AddToCartIcon extends StatefulWidget {
 
 class CartIconKey extends State<AddToCartIcon>
     with SingleTickerProviderStateMixin {
-  // Improvement/Suggestion 4.1: Adding 'badget-widget' counter
   String _qtdeBadge = "0";
 
   late final AnimationController _controller = AnimationController(
@@ -53,23 +55,33 @@ class CartIconKey extends State<AddToCartIcon>
             position: _offsetAnimation,
             child: this.widget.icon,
           ),
-          Positioned(
-              left: 30,
-              top: 5,
-              child: Container(
-                padding: EdgeInsets.all(2.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: widget.colorBadge ??
-                      Theme.of(context).colorScheme.secondary,
+          widget.badgeOptions.active
+              ? Positioned(
+                  left: 30,
+                  top: 5,
+                  child: Container(
+                    padding: EdgeInsets.all(2.0),
+                    width: widget.badgeOptions.width,
+                    height: widget.badgeOptions.height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: widget.badgeOptions.backgroundColor ??
+                          Theme.of(context).colorScheme.secondary,
+                    ),
+                    constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+                    child: Text(
+                      _qtdeBadge,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: widget.badgeOptions.fontSize,
+                        color: widget.badgeOptions.foregroundColor,
+                      ),
+                    ),
+                  ))
+              : const SizedBox(
+                  width: 0,
+                  height: 0,
                 ),
-                constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-                child: Text(
-                  _qtdeBadge,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10),
-                ),
-              )),
         ],
       ),
     );
@@ -79,6 +91,11 @@ class CartIconKey extends State<AddToCartIcon>
   Future<void> runCartAnimation([String? badgeQuantity]) async {
     await _controller.forward();
     await _controller.reverse();
+    _changeQtdeBadgeState(badgeQuantity);
+    return;
+  }
+
+  updateBadge(String? badgeQuantity) async {
     _changeQtdeBadgeState(badgeQuantity);
     return;
   }

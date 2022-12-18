@@ -1,104 +1,124 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
-import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-
 import 'package:flutter/material.dart';
 
-import 'list_item.dart';
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Add To Cart Animation',
+      title: 'Add To Cart Animation Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Add To Cart Animation'),
+      home: const MyHomePage(title: 'Add To Cart Animation Example'),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  // We can detech the location of the card by this  GlobalKey<CartIconKey>
-  GlobalKey<CartIconKey> gkCart = GlobalKey<CartIconKey>();
-  late Function(GlobalKey) runAddToCardAnimation;
+class MyHomePageState extends State<MyHomePage> {
+  // We can detech the location of the cart by this  GlobalKey<CartIconKey>
+  GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
+  late Function(GlobalKey) runAddToCartAnimation;
   var _cartQuantityItems = 0;
 
   @override
   Widget build(BuildContext context) {
     return AddToCartAnimation(
       // To send the library the location of the Cart icon
-      gkCart: gkCart,
-      rotation: true,
-      dragToCardCurve: Curves.easeIn,
-      dragToCardDuration: const Duration(milliseconds: 1000),
-      previewCurve: Curves.linearToEaseOut,
-      previewDuration: const Duration(milliseconds: 500),
-      previewHeight: 30,
-      previewWidth: 30,
+      cartKey: cartKey,
+      height: 30,
+      width: 30,
       opacity: 0.85,
-      initiaJump: false,
-      receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
-        // You can run the animation by addToCardAnimationMethod, just pass trough the the global key of  the image as parameter
-        this.runAddToCardAnimation = addToCardAnimationMethod;
+      dragAnimation: const DragToCartAnimationOptions(rotation: true),
+      jumpAnimation: const JumpAnimationOptions(),
+      createAddToCartAnimation: (runAddToCartAnimation) {
+        // You can run the animation by addToCartAnimationMethod, just pass trough the the global key of  the image as parameter
+        this.runAddToCartAnimation = runAddToCartAnimation;
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
           centerTitle: false,
           actions: [
-            // Improvement/Suggestion 4.4 -> Adding 'clear-cart-button'
+            //  Adding 'clear-cart-button'
             IconButton(
-              icon: Icon(Icons.cleaning_services),
+              icon: const Icon(Icons.cleaning_services),
               onPressed: () {
                 _cartQuantityItems = 0;
-                gkCart.currentState!.runClearCartAnimation();
+                cartKey.currentState!.runClearCartAnimation();
               },
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             AddToCartIcon(
-              key: gkCart,
-              icon: Icon(Icons.shopping_cart),
-              colorBadge: Colors.red,
+              key: cartKey,
+              icon: const Icon(Icons.shopping_cart),
+              badgeOptions: const BadgeOptions(
+                active: true,
+                backgroundColor: Colors.red,
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 16,
             )
           ],
         ),
         body: ListView(
-          children: [
-            AppListItem(onClick: listClick, index: 1),
-            AppListItem(onClick: listClick, index: 2),
-            AppListItem(onClick: listClick, index: 3),
-            AppListItem(onClick: listClick, index: 4),
-            AppListItem(onClick: listClick, index: 5),
-            AppListItem(onClick: listClick, index: 6),
-            AppListItem(onClick: listClick, index: 7),
-          ],
-        ),
+            children: List.generate(
+          15,
+          (index) => AppListItem(
+            onClick: listClick,
+            index: index,
+          ),
+        )),
       ),
     );
   }
 
-  // Improvement/Suggestion 4.4 -> Running AddTOCartAnimation BEFORE runCArtAnimation
-  void listClick(GlobalKey gkImageContainer) async {
-    await runAddToCardAnimation(gkImageContainer);
-    await gkCart.currentState!
+  void listClick(GlobalKey widgetKey) async {
+    await runAddToCartAnimation(widgetKey);
+    await cartKey.currentState!
         .runCartAnimation((++_cartQuantityItems).toString());
+  }
+}
+
+class AppListItem extends StatelessWidget {
+  final GlobalKey widgetKey = GlobalKey();
+  final int index;
+  final void Function(GlobalKey) onClick;
+
+  AppListItem({super.key, required this.onClick, required this.index});
+  @override
+  Widget build(BuildContext context) {
+    //  Container is mandatory. It can hold images or whatever you want
+    Container mandatoryContainer = Container(
+      key: widgetKey,
+      width: 60,
+      height: 60,
+      color: Colors.transparent,
+      child: Image.network(
+          "https://cdn.jsdelivr.net/gh/omerbyrk/add_to_cart_animation/example/assets/apple.png",
+          width: 60,
+          height: 60),
+    );
+
+    return ListTile(
+        onTap: () => onClick(widgetKey),
+        leading: mandatoryContainer,
+        title: Text("Animated Apple $index"));
   }
 }
