@@ -18,7 +18,7 @@ If you need it, you can add it to your project easily. It is <strong>easy to use
 Add the dependency to your pubspec.yaml: 
 
 ```
-add_to_cart_animation: ^2.0.0
+add_to_cart_animation: ^2.0.3
 ```
 
 And check the example code to solve how it works. 

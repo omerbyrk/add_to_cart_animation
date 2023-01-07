@@ -1,8 +1,8 @@
 name: add_to_cart_animation
 description: A flutter plugin which provide you add to cart animation. I have prepared it to special to shopping apps however you can use it on the others apps too.
-version: 2.0.1
-homepage: https://github.com/slovnicki/beamer
-repository: https://github.com/slovnicki/beamer
+version: 2.0.3
+homepage: https://github.com/omerbyrk/add_to_cart_animation
+repository: https://github.com/omerbyrk/add_to_cart_animation
 
 
 environment:

@@ -1,3 +1,7 @@
+## 2.0.3
+
+* Dispose issue is solved on add_to_cart_icon.dart.dart
+
 ## 2.0.1
 
 * Pub points optimization
