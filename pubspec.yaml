@@ -1,12 +1,12 @@
 name: add_to_cart_animation
 description: A flutter plugin which provide you add to cart animation. I have prepared it to special to shopping apps however you can use it on the others apps too.
-version: 2.0.3
+version: 2.0.4
 homepage: https://github.com/omerbyrk/add_to_cart_animation
 repository: https://github.com/omerbyrk/add_to_cart_animation
 
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
+  sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
   flutter:

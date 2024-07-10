@@ -1,3 +1,7 @@
+## 2.0.4
+
+* Adapted to the latest Flutter version
+
 ## 2.0.3
 
 * Dispose issue is solved on add_to_cart_icon.dart.dart
